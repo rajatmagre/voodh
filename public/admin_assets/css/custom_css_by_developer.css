@@ -1,0 +1,42 @@
+.browse-file-section button.browse.btn.btn-primary.input-lg {
+    background: #0055a6;
+    border: #0055a6;
+}
+
+.form-control+.input-group-addon:not(:first-child) {
+    border-left: 0;
+}
+.input-group-addon {
+    padding: .5rem .75rem;
+    margin-bottom: 0;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.25;
+    color: #464a4c;
+    text-align: center;
+    background-color: #eceeef;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: .25rem;
+}
+
+.course_page .form-wrapper {
+    max-width: 900px;
+}
+.see_my_image_size{
+	font-size: 12px;
+    color: red;
+}
+
+.loader_div_element{
+	display:none;
+}
+.loader_div_element span {
+    font-size: 12px;
+}
+
+.loader_div_element_content{
+	display:none;
+}
+.loader_div_element_content span {
+    font-size: 12px;
+}
