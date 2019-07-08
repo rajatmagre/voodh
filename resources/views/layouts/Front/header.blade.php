@@ -79,133 +79,41 @@
 
           <div class=" navbar-collapse" id="gNavi">
             <ul class="navbar-nav mr-auto">
-             <!--  <li class="nav-item active">
-                <a class="nav-link" href="#">Gifts</a>
-              </li> -->
-              <!--  <li class="dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Gifts <b class="caret"></b></a> 
-                          <ul class="dropdown-menu main-menu">
-                            <li class="kopie"><a href="#">Occasion</a></li>
-                              <li class="dropdown dropdown-submenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Relationship</a>
-                      <ul class="dropdown-menu">
-                                     <div class="row">
-                                        <div class="col-md-3">
-                                          <li>Special</li>
-                                          <li><a href="">Wife</a></li>
-                                          <li><a href="">Husband</a></li>
-                                          <li><a href="">Girlfriend</a></li>
-                                          <li><a href="">Boyfriend</a></li>
-                                          <li><a href="">Fiance</a></li>
-                                        </div>
-                                        <div class="col-md-3">
-                                          <li>Special</li>
-                                          <li><a href="">Wife</a></li>
-                                          <li><a href="">Husband</a></li>
-                                          <li><a href="">Girlfriend</a></li>
-                                          <li><a href="">Boyfriend</a></li>
-                                          <li><a href="">Fiance</a></li>
-                                        </div>
-                                        <div class="col-md-3">
-                                          <li>Special</li>
-                                          <li><a href="">Wife</a></li>
-                                          <li><a href="">Husband</a></li>
-                                          <li><a href="">Girlfriend</a></li>
-                                          <li><a href="">Boyfriend</a></li>
-                                          <li><a href="">Fiance</a></li>
-                                        </div>
-                                        <div class="col-md-3">
-                                          <li>Special</li>
-                                          <li><a href="">Wife</a></li>
-                                          <li><a href="">Husband</a></li>
-                                          <li><a href="">Girlfriend</a></li>
-                                          <li><a href="">Boyfriend</a></li>
-                                          <li><a href="">Fiance</a></li>
-                                        </div>
-                                     </div>
-                                                                        
-                  </ul>
-                </li>                                  
-                          </ul>
-                      </li> -->
                       <li class="active">
                         <a href="" class="nav-link">Gifts</a>
                         <ul class="pulldownmenu for-after-arrow">
-                          <li><a href="">Occasion</a>
-                            <ul class="pulldownmenu after-left-arrow">
-                              <div class="row">
-                                <div class="col-md-3">
-                                  <div>
-                                      <h5>Festivals</h5>
-                                      <li><a href="">Diwali</a></li>
-                                      <li><a href="">Holi</a></li>
-                                      <li><a href="">Rakhi</a></li>
-                                      <li><a href="">Dashahara</a></li>
-                                  </div>
-                                </div>
-                                <div class="col-md-3">
-                                  <div>
-                                      <h5>Special Days</h5>
-                                      <li><a href="">Mother's Day</a></li>
-                                      <li><a href="">Father's Day</a></li>
-                                      <li><a href="">Women's Day</a></li>
-                                      <li><a href="">Children's Day</a></li>
-                                  </div>
-                                </div>
-                                <div class="col-md-3">
-                                  <div>
-                                      <h5>Special Days</h5>
-                                      <li><a href="">Friendship Day</a></li>
-                                      <li><a href="">Teacher's Day</a></li>
-                                      <li><a href="">Valentine's Day</a></li>
-                                  </div>
-                                </div>
-                                
-                              </div>
-                            </ul>
-                          </li>
-                          <li><a href="">Relationship</a>
-                            <ul class="pulldownmenu after-left-arrow">
-                              <div class="row">
-                                <div class="col-md-3">
-                                  <div>
-                                      <h5>Special</h5>
-                                      <li><a href="">Wife</a></li>
-                                      <li><a href="">Husband</a></li>
-                                      <li><a href="">Girlfriend</a></li>
-                                      <li><a href="">Boyfriend</a></li>
-                                      <li><a href="">Fiance</a></li>
-                                  </div>
-                                </div>
-                                <div class="col-md-3">
-                                  <div>
-                                      <h5>Friends</h5>
-                                      <li><a href="">Him</a></li>
-                                      <li><a href="">Her</a></li>
-                                      <li><a href="">Both</a></li>
-                                      <li><a href="">Colleagues</a></li>
-                                  </div>
-                                </div>
-                                <div class="col-md-3">
-                                  <div>
-                                      <h5>Parents</h5>
-                                      <li><a href="">Father</a></li>
-                                      <li><a href="">Mother</a></li>
-                                      <li><a href="">Both</a></li>
-                                  </div>
-                                </div>
-                                <div class="col-md-3">
-                                  <div>
-                                      <h5>Family</h5>
-                                      <li><a href="">Son</a></li>
-                                      <li><a href="">Daughter</a></li>
-                                      <li><a href="">Couple</a></li>
-                                      <li><a href="">Sibling</a></li>
-                                      <li><a href="">Others</a></li>
-                                  </div>
-                                </div>
-                              </div>
-                            </ul>
-                          </li>
+                          <?php 
+                              $cats = getAllParentCat();
+                              if(!empty($cats) && count($cats)>0){
+                                foreach ($cats as $key => $cat) {
+                          ?>
+                              <li>
+                                  <a href="{{ $cat->cat_name }}">{{ $cat->cat_name }}</a>
+
+                                  <ul class="pulldownmenu after-left-arrow">
+                                    <div class="row">
+                                      <?php 
+                                          $subCats = getSubCat($cat->cat_id);
+                                          if(!empty($subCats) && count($subCats)>0){
+                                            foreach ($subCats as $key => $subCat) {
+                                      ?>
+                                          <div class="col-md-3">
+                                            <div>
+                                                <h5>{{ $subCat->cat_name }}</h5>
+                                                <?php 
+                                                    $reSubCats = getSubCat($subCat->cat_id);
+                                                    if(!empty($reSubCats) && count($reSubCats)>0){
+                                                      foreach ($reSubCats as $key => $reSubCat) {
+                                                ?>
+                                                    <li><a href="{{ url('products').'/'.base64_encode($reSubCat->cat_id) }}">{{ $reSubCat->cat_name }}</a></li>
+                                                <?php }} ?>
+                                            </div>
+                                          </div>
+                                      <?php }} ?>
+                                    </div>
+                                  </ul>
+                              </li>
+                          <?php }} ?>
                         </ul>
                       </li>
               <li class="nav-item">
@@ -240,6 +148,15 @@
               </div>
             </div>
             </form>
+            <div class="login-btn">
+              @if(Auth::check())
+                  Hello, 
+                  {{ ucfirst(Auth()->user()->full_name) }}
+                  <a href="{{ url('logout') }}" class="common-btn">Logout</a>
+              @else
+                  <a href="{{ url('user-login') }}" class="common-btn">Login/Sigup</a>
+              @endif
+            </div>
           </div>
         </nav>
         

@@ -30,6 +30,7 @@
               <tr>
                  <th>S. No.</th>
                  <th>Product Name</th>
+                 <th>Product Category</th>
                  <th>Prudtct Price</th>
                  <th>Discount Price</th>
                  <th>Image</th>
@@ -44,6 +45,7 @@
               <tr>
                   <td>{{ $i }}</td>
                   <td>{{ ucfirst($each_val->product_name) }}</td>
+                  <td>{{ ucfirst($each_val->cat_name) }}</td>
                   <!-- <td>{{ getParentCat($each_val->parent_cat_id) }}</td> -->
                   <td>{{ $each_val->product_price }}</td>
                   <td>{{ $each_val->discount_price }}</td>

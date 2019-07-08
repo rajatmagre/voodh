@@ -37,7 +37,7 @@ class UserForgotPasswordController extends Controller
     public function showLinkRequestForm()
     {   
 
-        return view('auth.ForgetPassword');
+        return view('Auth.ForgetPassword');
     }
     // public function forgetPassword(Request $request){
 

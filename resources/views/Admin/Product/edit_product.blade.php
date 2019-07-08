@@ -36,7 +36,7 @@
                         <option value="">Select Parent Category</option>
                         @if(!empty($all_parent_cats) && count($all_parent_cats) > 0)
                           @foreach($all_parent_cats as $each_val)
-                            <option value="{{ $each_val->cat_id }}" <?php if (!empty($edit_product_details->category_id)) { if ($edit_product_details->category_id == $each_val->cat_id) { ?> selected <?php } } ?>>{{ $each_val->cat_name }}</option>
+                            <option value="{{ $each_val->cat_id }}" <?php if (!empty($edit_product_details->main_category)) { if ($edit_product_details->main_category == $each_val->cat_id) { ?> selected <?php } } ?>>{{ $each_val->cat_name }}</option>
                           @endforeach
                         @endif
                       </select>
@@ -57,7 +57,7 @@
                             <option value="">Select Parent Category</option>
                             @if(!empty($all_cats) && count($all_cats) > 0)
                               @foreach($all_cats as $each_cat)
-                                <option value="{{ $each_cat->cat_id }}" <?php if (!empty($edit_product_details->sub_cat_id)) { if ($edit_product_details->sub_cat_id == $each_cat->cat_id) { ?> selected <?php } } ?>>{{ $each_cat->cat_name }}</option>
+                                <option value="{{ $each_cat->cat_id }}" <?php if (!empty($edit_product_details->sub_category)) { if ($edit_product_details->sub_category == $each_cat->cat_id) { ?> selected <?php } } ?>>{{ $each_cat->cat_name }}</option>
                               @endforeach
                             @endif
                         </select>
@@ -78,7 +78,7 @@
                           <option value="">Select Parent Category</option>
                             @if(!empty($all_cats) && count($all_cats) > 0)
                               @foreach($all_cats as $each_cat)
-                                <option value="{{ $each_cat->cat_id }}" <?php if (!empty($edit_product_details->resub_cat_id)) { if ($edit_product_details->resub_cat_id == $each_cat->cat_id) { ?> selected <?php } } ?>>{{ $each_cat->cat_name }}</option>
+                                <option value="{{ $each_cat->cat_id }}" <?php if (!empty($edit_product_details->resub_category)) { if ($edit_product_details->resub_category == $each_cat->cat_id) { ?> selected <?php } } ?>>{{ $each_cat->cat_name }}</option>
                               @endforeach
                             @endif
                       </select>

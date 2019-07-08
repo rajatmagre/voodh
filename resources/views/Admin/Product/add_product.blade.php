@@ -171,7 +171,7 @@
               <div class="col-md-9 offset-md-3">
                 <div class="text-center form-btn">
                   <button type="submit" id="add_product_btn" class="common-btn active">Add</button>
-                  <a href="{{ url('/category-list') }}" class="common-btn">Cancel</a>
+                  <a href="{{ url('/product-list') }}" class="common-btn">Cancel</a>
                 </div>
               </div>
             </div>

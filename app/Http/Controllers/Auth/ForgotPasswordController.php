@@ -8,6 +8,9 @@ use Illuminate\Http\Request;
 use Validator,Mail,Auth,Hash;
 use App\Model\User;
 use Illuminate\Support\Facades\Password;
+use DB;
+use Session;
+
 
 class ForgotPasswordController extends Controller
 {
@@ -36,7 +39,8 @@ class ForgotPasswordController extends Controller
 
     public function showLinkRequestForm()
     {
-        return view('auth.ForgetPassword');
+        
+        return view('Auth.ForgetPassword');
     }
     // public function forgetPassword(Request $request){
 

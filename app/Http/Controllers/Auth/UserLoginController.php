@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Session;
+use Auth;
 
 
 class UserLoginController extends Controller
@@ -28,7 +29,7 @@ class UserLoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -40,44 +41,29 @@ class UserLoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    // public function login(Request $request)
-    // {
-
-    //     if (\Auth::check())
-    //     {  
-    //         return \Redirect::intended('/');
-    //     }  
-    //     $this->validateLogin($request);
-
+    public function showLoginForm()
+    {    
+        $check_auth = \Auth::user();
        
-    //     $web_cookie=\Auth::getRecallerName();
+        if(!empty($check_auth)){
+               
+               $user_id=$check_auth->id;
 
+               if(empty($user_id)){
 
-    //     if($web_cookie!=null)
-    //     {
-    //         \Auth::viaRemember();
-    //     }
+                   return view('Auth.login');
 
-              
-    //         if(!empty($request['remember_me']))
-    //         {
-    //             $remember_me=true;
-    //         }
-    //         else
-    //         {
-    //              $remember_me=false;
-    //         }
+               } else {
 
-    //         if (\Auth::guard()->attempt(['email' => $request['email'],'password' => $request['password']],$remember_me)){
-    //          // if (\Auth::attempt(['email' => $request['email'],'password' => $request['password'],'email_verification_status'=>'yes'],$remember_me)){
+                   return redirect('/');
+               }
 
-    //              return redirect()->intended('/home');
-    //          }
+        } else {
+           
+           return view('Auth.login');
 
-    //      return $this->sendFailedLoginResponse($request);
-        
-    // }
-
+        }
+    }
     public function login(Request $request)
     {
         $this->validateLogin($request);
@@ -85,6 +71,7 @@ class UserLoginController extends Controller
         // If the class is using the ThrottlesLogins trait, we can automatically throttle
         // the login attempts for this application. We'll key this by the username and
         // the IP address of the client making these requests into this application.
+
         if ($this->hasTooManyLoginAttempts($request)) {
             $this->fireLockoutEvent($request);
 
@@ -102,6 +89,31 @@ class UserLoginController extends Controller
 
         return $this->sendFailedLoginResponse($request);
     }
+
+    // public function login(Request $request)
+    // {
+    //     $this->validateLogin($request);
+
+    //     // If the class is using the ThrottlesLogins trait, we can automatically throttle
+    //     // the login attempts for this application. We'll key this by the username and
+    //     // the IP address of the client making these requests into this application.
+    //     if ($this->hasTooManyLoginAttempts($request)) {
+    //         $this->fireLockoutEvent($request);
+
+    //         return $this->sendLockoutResponse($request);
+    //     }
+
+    //     if ($this->attemptLogin($request)) {
+    //         return $this->sendLoginResponse($request);
+    //     }
+
+    //     // If the login attempt was unsuccessful we will increment the number of attempts
+    //     // to login and redirect the user back to the login form. Of course, when this
+    //     // user surpasses their maximum number of attempts they will get locked out.
+    //     $this->incrementLoginAttempts($request);
+
+    //     return $this->sendFailedLoginResponse($request);
+    // }
 
     protected function sendLoginResponse(Request $request)
     {
@@ -129,12 +141,13 @@ class UserLoginController extends Controller
 
     public function authenticated(Request $request, $user)
     {   
+        // return Auth::user();
         // return $user;
-        if ($user->email_verification_status=='no') {
-          auth()->logout();
-          Session::flash('error', 'Your Email Verification is pending please verify your email.'); 
-          return back();
-        }
+        // if ($user->email_verification_status=='no') {
+        //   auth()->logout();
+        //   Session::flash('error', 'Your Email Verification is pending please verify your email.'); 
+        //   return back();
+        // }
         return redirect()->intended($this->redirectPath());
     }
 }

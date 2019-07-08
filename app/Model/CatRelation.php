@@ -7,14 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 // use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Category extends Model
+class CatRelation extends Model
 {
-    protected $table='tbl_category';
-    protected $fillable = ['cat_id', 'parent_cat_id', 'cat_name', 'cat_url', 'cat_image', 'cat_status', 'deleted', 'deleted_at', 'deleted_by', 'created_at', 'created_by', 'updated_at', 'updated_by'];
-    
+    protected $table='tbl_products_category_rel';
+    protected $fillable = ['rel_id', 'product_id', 'category_id', 'sub_cat_id', 'resub_cat_id'];
+
     function cat_product()
     {
     	return $this->hasMany('App\Model\Product','product_id','product_id');  
     }
-
+    function cat_info()
+    {
+    	return $this->hasMany('App\Model\Category','cat_id','sub_cat_id');  
+    }
 }

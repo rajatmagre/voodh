@@ -10,6 +10,7 @@ use Session;
 use Validator;
 use App\Model\Product;
 use App\Model\Category;
+use App\Model\CatRelation;
 use Mail;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -39,7 +40,12 @@ class ProductController extends Controller
     }
 	public function product_list()
 	{	
-		$all_products = Product::where(['deleted' => '0'])->orderBy('product_id','ASC')->get();
+
+        $all_products = DB::table('tbl_products')
+                        ->leftJoin('tbl_category AS cats', 'tbl_products.resub_category', '=', 'cats.cat_id')
+                        ->select('tbl_products.*','cats.*')
+                        ->where(['tbl_products.deleted' => '0'])
+                        ->get();
         // echo "<pre>";
         // print_r($all_products);die();
 		return view('Admin.Product.product_list',compact('all_products'));
@@ -48,6 +54,7 @@ class ProductController extends Controller
 	public function add_product(Request $request)
 	{	
 		if ($request->method() == 'POST') {
+            // print_r($_POST);die();
             /**__ Check Validation __**/ 
                 $validatedData = $request->validate(
                     [
@@ -100,13 +107,13 @@ class ProductController extends Controller
                             );
                     DB::table('tbl_product_images')->insertGetId($arrImage);
                 }
-                    $arrcats = array(
-                                'product_id'        => $insert->id,
-                                'category_id'       => $request['main_category'],
-                                'sub_cat_id'        => $request['sub_cat'],
-                                'resub_cat_id'      => $request['resub_cat']
-                            );
-                    DB::table('tbl_products_category_rel')->insertGetId($arrcats);
+
+                $update =   Product::where('product_id',$insert->id)->update([
+                                'main_category'       => $request['main_category'],
+                                'sub_category'        => $request['sub_cat'],
+                                'resub_category'      => $request['resub_cat']
+                ]);
+                    
 
 	            return redirect('/product-list')->with('success', 'Product details added successfully.');
 	            exit;
@@ -147,6 +154,9 @@ class ProductController extends Controller
                             'discount_price'       => $request['discount_price'],
                             'product_image'        => $product_main_image,
                             'product_status'       => $request['product_status'],
+                            'main_category'        => $request['main_category'],
+                            'sub_category'         => $request['sub_cat'],
+                            'resub_category'       => $request['resub_cat'],
                             'updated_at'           => date('Y-m-d H:i:s'),
                             'updated_by'           => $admin_id,//insert login session id
                         ]);
@@ -179,8 +189,7 @@ class ProductController extends Controller
 	        }
         }
         $data['edit_product_details'] = DB::table('tbl_products')
-                        ->join('tbl_products_category_rel AS cat_ral', 'tbl_products.product_id', '=', 'cat_ral.product_id')
-                        ->select('tbl_products.*','cat_ral.*')
+                        ->select('tbl_products.*')
                         ->where(['tbl_products.product_id' => $decode_product_id,'tbl_products.deleted' => '0'])
                         ->first();
         $data['prod_images'] = DB::table('tbl_product_images')

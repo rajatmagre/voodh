@@ -1,208 +1,92 @@
+@extends('layouts.app_front')
 
+@section('content')
+<section class="login-page main-login signup-sec">
+    <div class="container-fluid p-0">
+         <div class="row">
+           
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                  <div class="login-form-box">
+                    <div class="login-inner for-login-page">
+                      <form name="login_form" id="login_form" method="post" action="{{ url('user-login') }}"> 
+                        @csrf
+                        <h5>Login to Your Account</h5>
+                            <div class="form-signup-block">
+                               <label>Email Address</label>
+                               <div class="input-group">
+                                    <input type="email" class="form-control" name="email" id="email" value="{{ old('email') }}" placeholder="Enter email." data-rule-required="true" data-msg-required="Enter email."  data-rule-email="true" data-msg-email="Enter email." autocomplete="off" />
 
-<!DOCTYPE html>
+                                     
+                                  <div class="input-group-append">
+                                    <span class="input-group-text" id="basic-addon1"><img src="{{ url('/public/assets/images/icons/email.png') }}"></span>
+                                  </div>
+                                </div>
+                                @if($errors->has('email'))
+                                      <span class="invalid-feedback" role="alert">
+                                          <strong>{{ $errors->first('email') }}</strong>
+                                      </span>
+                                 @endif
+                            </div>
+                             <div class="form-signup-block">
+                              <label>Password</label>
+                               <div class="input-group">
+                                  <input type="password" name="password" id="password" class="form-control" placeholder="Enter password." data-rule-required="true" data-msg-required="Enter password." >
 
-<html lang="en">
+                                  
+                                  <div class="input-group-append">
+                                    <span class="input-group-text" id="basic-addon1"><img src="{{ url('/public/assets/images/icons/pass.png') }}"></span>
+                                  </div>
+                                </div>
+                                @if($errors->has('password'))
+                                  <span class="invalid-feedback" role="alert">
+                                      <strong>{{ $errors->first('password') }}</strong>
+                                  </span>
+                                @endif
+                            </div>
+                            <div class="text-right forgot-link ">
+                              <a href="forget-password">Forgot Password?</a>
+                            </div>
+                         
+                          <div class="text-center">
+                              <button type="submit" type="submit" name="submit" id="login_btn" class="btn common-btn">Login</button>
+                          </div>
 
+                           <div class="text-center login-link">
+                              <span>Need a Voodh Account? <a href="user-register">Create an Account.</a></span>
+                          </div>
 
-
-<head>
-
-    <meta charset="utf-8">
-
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-    <!-- Tell the browser to be responsive to screen width -->
-
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <meta name="description" content="">
-
-    <meta name="author" content="">
-
-    <!-- Favicon icon -->
-
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/icon/favicon.png">
-
-    <title>People-For-Help</title>
-
-    <!-- Bootstrap Core CSS -->
-
-    <link href="{{ asset('public/assets/plugins/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
-
-    <!-- Custom CSS -->
-
-    <link href="{{ asset('public/assets/css/style.css') }}" rel="stylesheet">
-
-    <!-- You can change the theme colors from here -->
-
-    <link href="{{ asset('public/assets/css/colors/blue.css') }}" id="theme" rel="stylesheet">
-
-    
-
-</head>
-
-
-
-<body>
-
-    <!-- ============================================================== -->
-
-    <!-- Preloader - style you can find in spinners.css -->
-
-    <!-- ============================================================== -->
-
-    <div class="preloader">
-
-        <svg class="circular" viewBox="25 25 50 50">
-
-            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" /> </svg>
-
-    </div>
-
-    <!-- ============================================================== -->
-
-    <!-- Main wrapper - style you can find in pages.scss -->
-
-    <!-- ============================================================== -->
-
-    <section id="wrapper">
-
-        <div class="login-register" style="background-image:url({{asset('public/assets/images/background/login-register.jpg')}});">        
-
-            <div class="login-box card">
-
-            <div class="card-block">
-
-                 <form class="form-horizontal form-material"  data-parsley-validate id="loginform" action="" method="POST">
-
-                    @csrf
-
-                    <h3 class="box-title m-b-20">Sign In</h3>
-
-                    <div class="form-group ">
-
-                        <div class="col-xs-12">
-
-        
-
-                            <input type="text" placeholder="Email" name="email"  class="form-control valid-email" id="email" value="" autocomplete="on" required data-parsley-required-message=' Email is required.' value="" data-parsley-type='email'
-
-                               required data-parsley-type-message='Please enter valid email address.'>
-
-
-
-                        </div>
-
+                          
+                      </form>
                     </div>
-
-                   
-
-
-
-                    <div class="form-group">
-
-                        <div class="col-xs-12">
-
-                            
-
-                             <input type="password" name="password"  placeholder="Password" class="form-control required" value="" id="password" autocomplete="off"
-
-                                 value="" required data-parsley-required-message='Password is required.'>
-
-
-
-                        </div>
-
-                    </div>
-
-                    <div class="form-group">
-
-                        <div class="col-md-12">
-
-                           <a href="javascript:void(0)" id="to-recover" class="text-dark pull-right"><i class="fa fa-lock m-r-5"></i> Forgot pwd?</a> </div>
-
-                    </div>
-
-                    <div class="form-group text-center m-t-20">
-
-                        <div class="col-xs-12">
-
-                            <button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light" class="btn-submit" type="submit">Log In</button>
-
-                        </div>
-
-                    </div>
-
-                    
-
-                   
-
-                </form>
-
-               
-
+                  </div>
             </div>
-
-          </div>
-
+             <div class="col-md-6 img-login">
+              <img src="{{ url('/public/assets/images/other/login-banner.jpg') }}" class="img-fluid">
+            </div>
         </div>
+    </div>
+</section>
+<script src="{{ url('/public/admin_assets/developer_validate/jquery.validate.min.js')}}"></script>
+<script src="{{ url('/public/admin_assets/developer_validate/custom_validate.js')}}"></script>
+<script type="text/javascript">
 
-        
+     $(document).ready(function(){
 
-    </section>
+        $('#login_btn').click(function(){
 
-    <!-- ============================================================== -->
+        $('#login_form').validate({
+            ignore: [],
+            onfocusout: function(element) {
+            this.element(element);
+            },
+            errorClass: 'error_validation',
+            errorElement:'span',
+            highlight: function(element, errorClass) {
+            $(element).removeClass(errorClass);
 
-    <!-- End Wrapper -->
+            }
+        }); 
 
-    <!-- ============================================================== -->
-
-    <!-- ============================================================== -->
-
-    <!-- All Jquery -->
-
-    <!-- ============================================================== -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="http://parsleyjs.org/dist/parsley.js"></script>
-    <script src="{{ asset('public/assets/plugins/jquery/jquery.min.js') }}"></script>
-
-    <!-- Bootstrap tether Core JavaScript -->
-
-    <script src="{{ asset('public/assets/plugins/bootstrap/js/tether.min.js') }}"></script>
-
-    <script src="{{ asset('public/assets/plugins/bootstrap/js/bootstrap.min.js') }}"></script>
-
-    <!-- slimscrollbar scrollbar JavaScript -->
-
-    <script src="{{ asset('public/assets/js/jquery.slimscroll.js') }}"></script>
-
-    <!--Wave Effects -->
-
-    <script src="{{ asset('public/assets/js/waves.js') }}"></script>
-
-    <!--Menu sidebar -->
-
-    <script src="{{ asset('public/assets/js/sidebarmenu.js') }}"></script>
-
-    <!--stickey kit -->
-
-    <script src="{{ asset('public/assets/plugins/sticky-kit-master/dist/sticky-kit.min.js') }}"></script>
-
-    <!--Custom JavaScript -->
-
-    <script src="{{ asset('public/assets/js/custom.min.js') }}"></script>
-
-    <!-- ============================================================== -->
-
-    <!-- Style switcher -->
-
-    <!-- ============================================================== -->
-
-    <script src="{{ asset('public/assets/plugins/styleswitcher/jQuery.style.switcher.js') }}"></script>
-
-</body>
-
-
-
-</html>
+     });
+    </script>
+@endsection
